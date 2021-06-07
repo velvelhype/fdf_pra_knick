@@ -19,7 +19,7 @@ typedef struct
 
 void    read_file(char *file_name, fdf *data);
 
-void    breseham(int x, int y, int x1, int y1, fdf *data);
+void    breseham(float x, float y, float x1, float y1, fdf *data);
 
 void    draw(fdf *data);
 

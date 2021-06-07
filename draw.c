@@ -1,4 +1,5 @@
 #include "fdf.h"
+#include <math.h>
 
 #define MAX1(a, b) (a > b ? a : b)
 #define MOD(a) ((a < 0) ?  -a : a)
@@ -8,7 +9,13 @@ float   mod(float i)
     return (i < 0) ? -i : i;
 }
 
-void    breseham(int x, int y, int x1, int y1, fdf *data)
+void    isometric(float *x, float *y, int z)
+{
+    *x = (*x - *y) * cos(1);
+    *y = (*x + *y) * sin(1) - z;
+}
+
+void    breseham(float x, float y, float x1, float y1, fdf *data)
 {
     float   x_step;   
     float   y_step;
@@ -24,10 +31,18 @@ void    breseham(int x, int y, int x1, int y1, fdf *data)
     x1 *= data->zoom;
     y1 *= data->zoom;
 
-    data->color = (z) ? 0xe80c0c : 0xffffff;
+    data->color = (z) ? 0x00ff00 : 0xffffff;
+
+    isometric(&x, &y, z);
+    isometric(&x1, &y1, z1);
+
+    x += 250;
+    y += 250;
+    x1 += 250;
+    y1 += 250;
+
     x_step = x1 - x;
     y_step = y1 - y;  
-
     max = MAX(MOD(x_step), MOD(y_step));
     x_step /= max;
     y_step /= max;
