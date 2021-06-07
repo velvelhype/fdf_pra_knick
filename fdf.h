@@ -12,6 +12,8 @@ typedef struct
     int **z_matrix;
     int zoom;
     int color;
+    int shift_x;
+    int shift_y;
 
     void *mlx_ptr;
     void *win_ptr;

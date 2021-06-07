@@ -31,20 +31,20 @@ void    breseham(float x, float y, float x1, float y1, fdf *data)
     x1 *= data->zoom;
     y1 *= data->zoom;
 
-    data->color = (z) ? 0x00ff00 : 0xffffff;
+    data->color = (z || z1) ? 0x0000fff : 0xffffff;
 
     isometric(&x, &y, z);
     isometric(&x1, &y1, z1);
 
-    x += 250;
-    y += 250;
-    x1 += 250;
-    y1 += 250;
+    x += data->shift_x;
+    y += data->shift_y;
+    x1 += data->shift_x;
+    y1 += data->shift_y;
 
     x_step = x1 - x;
     y_step = y1 - y;  
     max = MAX(MOD(x_step), MOD(y_step));
-    x_step /= max;
+    x_step /= max; 
     y_step /= max;
 
     while((int)(x - x1) || (int)(y - y1))
