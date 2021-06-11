@@ -9,10 +9,14 @@ float   mod(float i)
     return (i < 0) ? -i : i;
 }
 
-void    isometric(float *x, float *y, int z)
+void    isometric(float *x, float *y, int z, fdf *data)
 {
-    *x = (*x - *y) * cos(1);
-    *y = (*x + *y) * sin(1) - z;
+    // *x = (*x - *y) * cos(data->rotation);
+    *x = (*x - *y) * cos(data->rotation) ;
+    *y = (*x + *y) * sin(data->rotation) - z;
+    // Hennkou taisyou
+    // isometric(&x, &y, z, data);
+    // isometric(&x1, &y1, z1, data);
 }
 
 void    breseham(float x, float y, float x1, float y1, fdf *data)
@@ -31,10 +35,10 @@ void    breseham(float x, float y, float x1, float y1, fdf *data)
     x1 *= data->zoom;
     y1 *= data->zoom;
 
-    data->color = (z || z1) ? 0x0000fff : 0xffffff;
+    data->color = (z || z1) ? 0x00ff00 : 0xffffff;
 
-    isometric(&x, &y, z);
-    isometric(&x1, &y1, z1);
+    isometric(&x, &y, z, data);
+    isometric(&x1, &y1, z1, data);
 
     x += data->shift_x;
     y += data->shift_y;
@@ -53,7 +57,6 @@ void    breseham(float x, float y, float x1, float y1, fdf *data)
         x += x_step;
         y += y_step;
     }
-
 }
 
 void    draw(fdf *data)
@@ -67,10 +70,10 @@ void    draw(fdf *data)
         x = 0;
         while(x < data->width )
         {
-            if(x < data->width)
-            breseham(x, y, x+1, y, data);
+            if(x < data->width - 1)
+                breseham(x, y, x+1, y, data);
             if(y < data->height -1)
-            breseham(x, y, x, y+1, data);
+                breseham(x, y, x, y+1, data);
             x++;
         }
         y++;
