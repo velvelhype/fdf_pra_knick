@@ -14,7 +14,7 @@ void    isometric(float *x, float *y, int z, fdf *data)
     // *x = (*x - *y) * cos(data->rotation);
     *x = (*x - *y) * cos(data->rotation) ;
     *y = (*x + *y) * sin(data->rotation) - z;
-    // Hennkou taisyou
+    // must change
     // isometric(&x, &y, z, data);
     // isometric(&x1, &y1, z1, data);
 }
