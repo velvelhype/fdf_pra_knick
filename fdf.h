@@ -20,6 +20,13 @@ typedef struct
     void *win_ptr;
 }       fdf;
 
+typedef struct s_color
+{
+	int red;
+	int green;
+	int blue;
+} t_color;
+
 void    read_file(char *file_name, fdf *data);
 
 void    draw(fdf *data);
