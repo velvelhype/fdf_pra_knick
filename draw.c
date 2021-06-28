@@ -31,10 +31,11 @@ t_color col_step_make(int start_col, int end_col, int max)
     t_color col_step;
     t_color open_start = rgb_open(start_col);
     t_color open_end = rgb_open(end_col);
+    if (max == 0)
+        max = 1;
     col_step.red = (open_end.red - open_start.red) / max;
     col_step.green = (open_end.green - open_start.green) / max;
     col_step.blue = (open_end.blue - open_start.blue) / max;
-
     return col_step;
 }
 
@@ -67,6 +68,7 @@ void    breseham(float x, float y, float x1, float y1, fdf *data)
     int max;
     int z;
     int z1;
+    int i = 0;
 
     z = data->z_matrix[(int)y][(int)x];
     z1 = data->z_matrix[(int)y1][(int)x1];
@@ -78,12 +80,11 @@ void    breseham(float x, float y, float x1, float y1, fdf *data)
     t_color start = rgb_open(0xffffff);
     t_color end = rgb_open(0xffffff);
 
-    data->color = (z || z1) ? 0x00ff00 : 0xffffff;
+    data->color = (z || z1) ? 0x00ffff : 0xffffff;
     if (z > z1)
-        start = rgb_open(0x00ff00);
+        start = rgb_open(0x00ffff);
     else if (z1 > z)
-        end = rgb_open(0x00ff00);
-
+        end = rgb_open(0x00fff);
     isometric(&x, &y, z, data);
     isometric(&x1, &y1, z1, data);
 
@@ -97,7 +98,10 @@ void    breseham(float x, float y, float x1, float y1, fdf *data)
     max = MAX(MOD(x_step), MOD(y_step));
     x_step /= max; 
     y_step /= max;
+    printf("%d\n", i++);
+
     t_color col_step = col_step_make(rgb_zip(start), rgb_zip(end), max);
+    printf("%d\n", i++);
 
     if (z - z1)
     {
